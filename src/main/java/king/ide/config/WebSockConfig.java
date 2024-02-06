@@ -1,4 +1,4 @@
-package king.ide;
+package king.ide.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
