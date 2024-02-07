@@ -1,6 +1,7 @@
 package king.ide.controller;
 
 import jakarta.validation.Valid;
+import king.ide.controller.request.LoginRequest;
 import king.ide.controller.request.SignupRequest;
 import king.ide.controller.response.SignupResponse;
 import king.ide.service.MemberService;
@@ -32,5 +33,10 @@ public class MemberController {
     public ResponseEntity<String> duplicatedLoginId(@PathVariable("loginId") String loginId) {
         memberService.validateDuplicatedLoginId(loginId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public void login(@RequestBody @Valid LoginRequest request) {
+        memberService.login(request);
     }
 }

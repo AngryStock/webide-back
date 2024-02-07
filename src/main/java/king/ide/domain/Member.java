@@ -30,4 +30,8 @@ public class Member {
     private String encodePassword(PasswordEncoder passwordEncoder, String password) {
         return passwordEncoder.encode(password);
     }
+
+    public static boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
 }
