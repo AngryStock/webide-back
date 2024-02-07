@@ -32,6 +32,7 @@ public class MemberService {
     public void validateDuplicatedLoginId(String loginId) {
         Optional<Member> findMember = memberRepository.findByLoginId(loginId);
         if (findMember.isPresent()) {
+            System.out.println(findMember.isPresent());
             throw new DuplicateException("아이디가 중복되었습니다.");
         }
     }
