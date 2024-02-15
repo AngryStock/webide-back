@@ -1,5 +1,6 @@
 package king.ide.config;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -24,9 +25,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/signup", "/login", "/duplicate/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }
+//"/signup", "/login", "/duplicate/**", "/chat/**"
