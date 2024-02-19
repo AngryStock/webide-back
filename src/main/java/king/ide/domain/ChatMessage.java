@@ -2,12 +2,12 @@ package king.ide.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class ChatMessage {
+public class ChatMessage extends DateEntity{
 
     // 메세지 타입 : 입장, 채팅, 퇴장
     public enum MessageType {

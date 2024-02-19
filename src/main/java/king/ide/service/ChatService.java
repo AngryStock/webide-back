@@ -24,4 +24,12 @@ public class ChatService {
         return chatRepository.findByRoomId(roomId);
     }
 
+    public ChatMessage findById(Long id) {
+        return chatRepository.findById(id);
+    }
+
+    public List<ChatMessage> findBySender(String sender) {
+        return chatRepository.findBySender(sender);
+    }
+
 }

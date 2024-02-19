@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,5 +29,23 @@ public class ChatController {
         chatService.save(message);
 
         messageSendingOperations.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+    }
+
+    @GetMapping("/chat/roomId/{roomId}")
+    @ResponseBody
+    public List<ChatMessage> findMessageByRoomId(@PathVariable String roomId){
+        return chatService.findByRoomId(roomId);
+    }
+
+    @GetMapping("/chat/id/{id}")
+    @ResponseBody
+    public ChatMessage findMessageById(@PathVariable Long id) {
+        return chatService.findById(id);
+    }
+
+    @GetMapping("/chat/sender/{sender}")
+    @ResponseBody
+    public List<ChatMessage> findMessageBySender(@PathVariable String sender) {
+        return chatService.findBySender(sender);
     }
 }

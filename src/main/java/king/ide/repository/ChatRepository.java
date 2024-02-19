@@ -4,11 +4,13 @@ import jakarta.persistence.EntityManager;
 import king.ide.domain.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class ChatRepository {
 
     private final EntityManager em;
@@ -24,4 +26,15 @@ public class ChatRepository {
                 .getResultList();
     }
 
+    public ChatMessage findById(Long id) {
+        return em.createQuery("select cm from ChatMessage cm where cm.id = :id", ChatMessage.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    public List<ChatMessage> findBySender(String sender) {
+        return em.createQuery("select cm from ChatMessage cm where cm.sender = :sender", ChatMessage.class)
+                .setParameter("sender", sender)
+                .getResultList();
+    }
 }
