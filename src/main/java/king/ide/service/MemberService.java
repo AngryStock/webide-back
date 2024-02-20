@@ -2,6 +2,7 @@ package king.ide.service;
 
 import java.util.Optional;
 import king.ide.controller.request.SignupRequest;
+import king.ide.domain.Authority;
 import king.ide.domain.Member;
 import king.ide.exception.DuplicateException;
 import king.ide.exception.UnauthorizedException;
@@ -50,7 +51,7 @@ public class MemberService {
     public void withdrawal() {
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Member findMember = memberRepository.findByLoginId(loginId).orElse(null);
-        if (findMember == null) {
+        if (findMember == null || findMember.getAuthority() == Authority.ROLE_WITHDRAWAL) {
             throw new UnauthorizedException("잘못된 접근입니다.");
         }
         findMember.withdrawal();
