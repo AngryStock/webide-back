@@ -7,12 +7,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
 import king.ide.controller.request.SignupRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 
 @Entity
 @Getter
@@ -30,8 +28,7 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
-
-
+    
     public Member(String loginId, Authority authority) {
         this.loginId = loginId;
         this.authority = authority;
@@ -49,9 +46,14 @@ public class Member {
         return passwordEncoder.encode(password);
     }
 
-    public static boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
-        return passwordEncoder.matches(rawPassword, encodedPassword);
+//    public static boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
+//        return passwordEncoder.matches(rawPassword, encodedPassword);
+//    }
+
+    public void withdrawal() {
+        this.authority = Authority.ROLE_WITHDRAWAL;
     }
+
 
     @Override
     public String toString() {

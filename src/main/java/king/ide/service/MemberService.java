@@ -8,6 +8,7 @@ import king.ide.exception.UnauthorizedException;
 import king.ide.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,5 +44,15 @@ public class MemberService {
             throw new UnauthorizedException("권한이 없습니다.");
         }
         return findMember;
+    }
+
+    @Transactional
+    public void withdrawal() {
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member findMember = memberRepository.findByLoginId(loginId).orElse(null);
+        if (findMember == null) {
+            throw new UnauthorizedException("잘못된 접근입니다.");
+        }
+        findMember.withdrawal();
     }
 }

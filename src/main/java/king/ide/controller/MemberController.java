@@ -1,9 +1,7 @@
 package king.ide.controller;
 
 import jakarta.validation.Valid;
-import king.ide.controller.request.LoginRequest;
 import king.ide.controller.request.SignupRequest;
-import king.ide.controller.response.LoginResponse;
 import king.ide.controller.response.MemberResponse;
 import king.ide.controller.response.SignupResponse;
 import king.ide.domain.Member;
@@ -41,13 +39,6 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public LoginResponse login(@RequestBody @Valid LoginRequest request) {
-        log.info("로그인 컨트롤러 시작");
-        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        return new LoginResponse(200, "로그인이 완료되었습니다.");
-    }
-
     @GetMapping("/member/{id}")
     public MemberResponse findById(@PathVariable("id") Long id) {
         Member findMember = memberService.findById(id,
@@ -60,5 +51,11 @@ public class MemberController {
                 findMember.getMobileNumber());
 
         return new MemberResponse(200, memberDto);
+    }
+
+    @GetMapping("/member/withdrawal")
+    public ResponseEntity<String> withdrawal() {
+        memberService.withdrawal();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
