@@ -7,11 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import king.ide.controller.request.SignupRequest;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
