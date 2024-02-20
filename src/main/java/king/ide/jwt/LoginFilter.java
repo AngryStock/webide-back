@@ -61,9 +61,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        log.info("request : {}", request);
-        log.info("response : {}", response);
-        log.info("authResult : {}", authResult);
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
 
@@ -99,6 +96,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                                               AuthenticationException failed) throws IOException, ServletException {
 
         response.setStatus(401);
-        log.info("로그인 필터 실패 : {}", failed);
+
+        Map<String, Object> errorData = new HashMap<>();
+        errorData.put("errorCode", 401);
+        errorData.put("errorMessage", "아이디 또는 비밀번호가 잘못 입력되었습니다.");
+
+        response.setContentType("application/json;charset=UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(errorData);
+        response.getWriter().write(jsonResponse);
+
+        log.info("로그인 필터 실패");
     }
 }
