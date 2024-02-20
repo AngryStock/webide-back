@@ -11,11 +11,12 @@ import jakarta.validation.constraints.NotEmpty;
 import king.ide.controller.request.SignupRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class Member {
     @Id
