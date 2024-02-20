@@ -24,4 +24,8 @@ public class MemberRepository {
                 .getResultList();
         return findMember.stream().findAny();
     }
+
+    public Member findById(Long id) {
+        return em.find(Member.class, id);
+    }
 }

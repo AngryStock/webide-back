@@ -1,7 +1,6 @@
 package king.ide.service;
 
 import java.util.Optional;
-import king.ide.controller.request.LoginRequest;
 import king.ide.controller.request.SignupRequest;
 import king.ide.domain.Member;
 import king.ide.exception.DuplicateException;
@@ -38,17 +37,11 @@ public class MemberService {
         }
     }
 
-    public void login(LoginRequest request) {
-        Member findMember = memberRepository.findByLoginId(request.getLoginId()).orElse(null);
-        if (findMember == null) {
-            log.info("login service 아이디 존재 X");
-            throw new UnauthorizedException("아이디 또는 비밀번호가 올바르지 않습니다.");
+    public Member findById(Long id, String loginId) {
+        Member findMember = memberRepository.findById(id);
+        if (findMember == null || !findMember.getLoginId().equals(loginId)) {
+            throw new UnauthorizedException("권한이 없습니다.");
         }
-
-        boolean isMatched = Member.matchPassword(passwordEncoder, request.getPassword(), findMember.getPassword());
-        if (!isMatched) {
-            log.info("login service 비밀번호 틀림");
-            throw new UnauthorizedException("아이디 또는 비밀번호가 올바르지 않습니다.");
-        }
+        return findMember;
     }
 }
