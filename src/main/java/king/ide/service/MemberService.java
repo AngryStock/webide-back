@@ -4,6 +4,7 @@ import java.util.Optional;
 import king.ide.controller.request.SignupRequest;
 import king.ide.domain.Member;
 import king.ide.exception.DuplicateException;
+import king.ide.exception.UnauthorizedException;
 import king.ide.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,5 +35,13 @@ public class MemberService {
         if (findMember.isPresent()) {
             throw new DuplicateException("아이디가 중복되었습니다.");
         }
+    }
+
+    public Member findById(Long id, String loginId) {
+        Member findMember = memberRepository.findById(id);
+        if (findMember == null || !findMember.getLoginId().equals(loginId)) {
+            throw new UnauthorizedException("권한이 없습니다.");
+        }
+        return findMember;
     }
 }

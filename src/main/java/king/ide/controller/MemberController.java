@@ -1,18 +1,25 @@
 package king.ide.controller;
 
 import jakarta.validation.Valid;
+import king.ide.controller.request.LoginRequest;
 import king.ide.controller.request.SignupRequest;
+import king.ide.controller.response.LoginResponse;
+import king.ide.controller.response.MemberResponse;
 import king.ide.controller.response.SignupResponse;
+import king.ide.domain.Member;
+import king.ide.dto.MemberDto;
 import king.ide.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @Slf4j
 @RestController
@@ -32,5 +39,26 @@ public class MemberController {
     public ResponseEntity<String> duplicatedLoginId(@PathVariable("loginId") String loginId) {
         memberService.validateDuplicatedLoginId(loginId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody @Valid LoginRequest request) {
+        log.info("로그인 컨트롤러 시작");
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return new LoginResponse(200, "로그인이 완료되었습니다.");
+    }
+
+    @GetMapping("/member/{id}")
+    public MemberResponse findById(@PathVariable("id") Long id) {
+        Member findMember = memberService.findById(id,
+                SecurityContextHolder.getContext().getAuthentication().getName());
+
+        MemberDto memberDto = new MemberDto(
+                findMember.getId(),
+                findMember.getName(),
+                findMember.getLoginId(),
+                findMember.getMobileNumber());
+
+        return new MemberResponse(200, memberDto);
     }
 }
