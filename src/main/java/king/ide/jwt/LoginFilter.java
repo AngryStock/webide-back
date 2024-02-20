@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import king.ide.controller.request.LoginRequest;
+import king.ide.domain.Authority;
 import king.ide.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +75,20 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         GrantedAuthority auth = iterator.next();
 
         String authority = auth.getAuthority();
+
+        if (authority.equals(String.valueOf(Authority.ROLE_WITHDRAWAL))) {
+            response.setStatus(401);
+
+            Map<String, Object> errorData = new HashMap<>();
+            errorData.put("errorCode", 401);
+            errorData.put("errorMessage", "등록되지 않은 회원입니다.");
+
+            response.setContentType("application/json;charset=UTF-8");
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(errorData);
+            response.getWriter().write(jsonResponse);
+            return;
+        }
 
         String token = jwtUtil.createJwt(id, name, loginId, mobileNumber, authority, 86_400_000L);
 

@@ -28,10 +28,7 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
-
-    private boolean isActive;
-
-
+    
     public Member(String loginId, Authority authority) {
         this.loginId = loginId;
         this.authority = authority;
@@ -43,7 +40,6 @@ public class Member {
         this.password = encodePassword(passwordEncoder, request.getPassword());
         this.mobileNumber = request.getMobileNumber();
         this.authority = Authority.ROLE_USER;
-        this.isActive = true;
     }
 
     private String encodePassword(PasswordEncoder passwordEncoder, String password) {
@@ -53,7 +49,12 @@ public class Member {
 //    public static boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
 //        return passwordEncoder.matches(rawPassword, encodedPassword);
 //    }
-    
+
+    public void withdrawal() {
+        this.authority = Authority.ROLE_WITHDRAWAL;
+    }
+
+
     @Override
     public String toString() {
         return "Member{" +

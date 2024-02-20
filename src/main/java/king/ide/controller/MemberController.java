@@ -52,4 +52,10 @@ public class MemberController {
 
         return new MemberResponse(200, memberDto);
     }
+
+    @GetMapping("/member/withdrawal")
+    public ResponseEntity<String> withdrawal() {
+        memberService.withdrawal();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
