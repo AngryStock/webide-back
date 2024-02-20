@@ -33,9 +33,13 @@ public class JwtUtil {
                 .getExpiration().before(new Date());
     }
 
-    public String createJwt(String loginId, String authority, Long expiredMs) {
+    public String createJwt(Long id, String name, String loginId, String mobileNumber, String authority,
+                            Long expiredMs) {
         return Jwts.builder()
+                .claim("id", id)
+                .claim("name", name)
                 .claim("loginId", loginId)
+                .claim("mobileNumber", mobileNumber)
                 .claim("authority", authority)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiredMs))

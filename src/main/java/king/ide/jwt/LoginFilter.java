@@ -61,10 +61,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+        log.info("request : {}", request);
+        log.info("response : {}", response);
+        log.info("authResult : {}", authResult);
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
 
+        Long id = customUserDetails.getId();
+        String name = customUserDetails.getName();
         String loginId = customUserDetails.getUsername();
+        String mobileNumber = customUserDetails.getMobileNumber();
 
         Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -72,7 +78,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String authority = auth.getAuthority();
 
-        String token = jwtUtil.createJwt(loginId, authority, 86_400_000L);
+        String token = jwtUtil.createJwt(id, name, loginId, mobileNumber, authority, 86_400_000L);
 
         response.addHeader("auth", "Bearer " + token);
 

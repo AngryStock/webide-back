@@ -53,4 +53,16 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Long getId() {
+        return member.getId();
+    }
+
+    public String getName() {
+        return member.getName();
+    }
+
+    public String getMobileNumber() {
+        return member.getMobileNumber();
+    }
 }

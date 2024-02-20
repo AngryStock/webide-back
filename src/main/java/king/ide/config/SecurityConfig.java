@@ -60,3 +60,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+//"/signup", "/login", "/duplicate/**", "/chat/**"
