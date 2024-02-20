@@ -7,12 +7,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
 import king.ide.controller.request.SignupRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 
 @Entity
 @Getter
@@ -31,6 +29,8 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
+    private boolean isActive;
+
 
     public Member(String loginId, Authority authority) {
         this.loginId = loginId;
@@ -43,16 +43,17 @@ public class Member {
         this.password = encodePassword(passwordEncoder, request.getPassword());
         this.mobileNumber = request.getMobileNumber();
         this.authority = Authority.ROLE_USER;
+        this.isActive = true;
     }
 
     private String encodePassword(PasswordEncoder passwordEncoder, String password) {
         return passwordEncoder.encode(password);
     }
 
-    public static boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
-        return passwordEncoder.matches(rawPassword, encodedPassword);
-    }
-
+//    public static boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
+//        return passwordEncoder.matches(rawPassword, encodedPassword);
+//    }
+    
     @Override
     public String toString() {
         return "Member{" +
