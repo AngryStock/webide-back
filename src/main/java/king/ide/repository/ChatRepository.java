@@ -26,9 +26,9 @@ public class ChatRepository {
                 .getResultList();
     }
 
-    public ChatMessage findById(Long id) {
-        return em.createQuery("select cm from ChatMessage cm where cm.id = :id", ChatMessage.class)
-                .setParameter("id", id)
+    public ChatMessage findByLoginId(String loginId) {
+        return em.createQuery("select cm from ChatMessage cm where cm.loginId = :loginId", ChatMessage.class)
+                .setParameter("loginId", loginId)
                 .getSingleResult();
     }
 
