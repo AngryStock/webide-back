@@ -24,8 +24,8 @@ public class ChatService {
         return chatRepository.findByRoomId(roomId);
     }
 
-    public ChatMessage findById(Long id) {
-        return chatRepository.findById(id);
+    public ChatMessage findByLoginId(String loginId) {
+        return chatRepository.findByLoginId(loginId);
     }
 
     public List<ChatMessage> findBySender(String sender) {

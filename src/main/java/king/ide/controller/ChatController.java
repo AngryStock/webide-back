@@ -42,10 +42,10 @@ public class ChatController {
         return chatService.findByRoomId(roomId);
     }
 
-    @GetMapping("/chat/id/{id}")
+    @GetMapping("/chat/id/{loginId}")
     @ResponseBody
-    public ChatMessage findMessageById(@PathVariable Long id) {
-        return chatService.findById(id);
+    public ChatMessage findMessageById(@PathVariable String loginId) {
+        return chatService.findByLoginId(loginId);
     }
 
     @GetMapping("/chat/sender/{sender}")
