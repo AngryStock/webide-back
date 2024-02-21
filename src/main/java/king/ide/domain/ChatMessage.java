@@ -20,6 +20,7 @@ public class ChatMessage extends DateEntity{
 
     private MessageType type;
     private String roomId;
-    private String sender; // 유저 닉네임
+    private String loginId; // 유저 아이디
+    private String sender; // 유저 이름
     private String message;
 }
