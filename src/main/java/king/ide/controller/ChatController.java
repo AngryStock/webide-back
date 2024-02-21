@@ -2,6 +2,7 @@ package king.ide.controller;
 
 import king.ide.domain.ChatMessage;
 import king.ide.service.ChatService;
+import king.ide.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,6 +20,7 @@ public class ChatController {
 
     private final SimpMessageSendingOperations messageSendingOperations;
     private final ChatService chatService;
+    private final MemberService memberService;
 
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) {
