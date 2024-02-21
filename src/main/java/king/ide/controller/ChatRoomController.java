@@ -54,8 +54,7 @@ public class ChatRoomController {
     @GetMapping("/room/enter/{roomId}")
     public String enterRoom(Model model, @PathVariable String roomId){
         model.addAttribute("roomId", roomId);
-        return "/chat/roomdetail";
+        return "chat/roomdetail";
     }
-
 
 }
