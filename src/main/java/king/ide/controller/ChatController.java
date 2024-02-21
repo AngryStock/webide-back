@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,8 @@ public class ChatController {
             message.setMessage(message.getSender() + "님이 입장하셨습니다.");
         }
 
+        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        message.setLoginId(loginId);
         chatService.save(message);
 
         messageSendingOperations.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
