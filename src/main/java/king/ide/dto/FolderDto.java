@@ -12,8 +12,6 @@ import java.util.List;
 @Getter @Setter
 public class FolderDto {
 
-    private int temp;
-
     private Long id;
     private Long memberId; // 해당 폴더 소유자 ID
     private String foldername;

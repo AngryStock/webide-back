@@ -21,6 +21,8 @@ public class Packages {
     private Folders folders;
 
     private String packagename;
+    private String parentPackagerId;
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "packages")
     private List<Files> filesList;

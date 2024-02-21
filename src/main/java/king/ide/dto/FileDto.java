@@ -9,8 +9,6 @@ import lombok.Setter;
 @Getter @Setter
 public class FileDto {
 
-    private int temp;
-
     private Long id;
     private Long packageId;
     private String filename;
