@@ -61,7 +61,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-            Authentication authResult) throws IOException, ServletException {
+                                            Authentication authResult) throws IOException, ServletException {
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
 
@@ -92,7 +92,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String token = jwtUtil.createJwt(id, name, loginId, mobileNumber, authority, 86_400_000L);
 
-        response.addHeader("auth", "Bearer " + token);
+        response.addHeader("Authorization", "Bearer " + token);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("httpCode", 200);
@@ -108,7 +108,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException failed) throws IOException, ServletException {
+                                              AuthenticationException failed) throws IOException, ServletException {
 
         response.setStatus(401);
 
