@@ -25,8 +25,8 @@ public class FolderDto {
         folder.setId(this.id);
 
         // memberId
-        //Member member = new Member();
-        //member.setId(this.memberId);
+        Member member = new Member();
+        member.setId(this.memberId);
 
         //folder.setMember(member);
         folder.setFoldername(this.foldername);
