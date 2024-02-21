@@ -2,6 +2,8 @@ package king.ide.service;
 
 import jakarta.annotation.PostConstruct;
 import king.ide.domain.ChatRoom;
+import king.ide.domain.Member;
+import king.ide.exception.DuplicateException;
 import king.ide.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class ChatRoomService {
 
     //채팅방 생성
     public ChatRoom create(String name) {
+        validateDuplicatedRoomName(name); // 채팅방 이름 중복체크
         return chatRoomRepository.create(name);
     }
 
@@ -38,5 +41,12 @@ public class ChatRoomService {
     public ChatRoom findById(String id) {
         Optional<ChatRoom> chatRoom = chatRoomRepository.findById(id);
         return chatRoom.orElseThrow();
+    }
+
+    public void validateDuplicatedRoomName(String name) {
+        Optional<ChatRoom> findRoom = chatRoomRepository.findByName(name);
+        if (findRoom.isPresent()) {
+            throw new DuplicateException("채팅방 이름이 중복되었습니다.");
+        }
     }
 }
