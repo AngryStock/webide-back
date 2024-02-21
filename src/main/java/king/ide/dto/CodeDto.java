@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class CodeDto {
 
+    private int temp;
+
     private Long id;
     private String content;
     private LocalDateTime createdAt;

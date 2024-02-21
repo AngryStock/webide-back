@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class PackageDto {
 
+    private int temp;
+
     private Long id;
     private Long folderId;
     private String packagename;
@@ -32,8 +34,8 @@ public class PackageDto {
         packages.setFolders(folders);
 
         packages.setPackagename(this.packagename);
-        packages.setParentPackagerId(this.parentPackageId);
-        packages.setCreatedAt(this.createdAt);
+        //packages.setParentPackagerId(this.parentPackageId);
+        //packages.setCreatedAt(this.createdAt);
 
         return packages;
     }

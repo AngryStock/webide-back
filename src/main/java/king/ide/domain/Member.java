@@ -14,7 +14,7 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 public class Member {
     @Id

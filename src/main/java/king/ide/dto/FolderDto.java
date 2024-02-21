@@ -12,6 +12,8 @@ import java.util.List;
 @Getter @Setter
 public class FolderDto {
 
+    private int temp;
+
     private Long id;
     private Long memberId; // 해당 폴더 소유자 ID
     private String foldername;
@@ -25,10 +27,10 @@ public class FolderDto {
         folder.setId(this.id);
 
         // memberId
-        Member member = new Member();
-        member.setId(this.memberId);
+        //Member member = new Member();
+        //member.setId(this.memberId);
 
-        folder.setMember(member);
+        //folder.setMember(member);
         folder.setFoldername(this.foldername);
         folder.setParentFolderId(this.parentFolderId);
         folder.setCreatedAt(this.createdAt);
