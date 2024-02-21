@@ -1,10 +1,13 @@
 package king.ide.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import king.ide.domain.Authority;
 import king.ide.domain.Member;
 import king.ide.dto.CustomUserDetails;
@@ -25,11 +28,26 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        String requestURI = request.getRequestURI();
+        if (requestURI.startsWith("/signup") || requestURI.startsWith("/login") || requestURI.startsWith(
+                "/duplicate")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authorization = request.getHeader("Authorization");
 
         if (authorization == null || !authorization.startsWith("Bearer ")) {
-            log.info("token 없음");
-            filterChain.doFilter(request, response);
+            response.setStatus(401);
+
+            Map<String, Object> errorData = new HashMap<>();
+            errorData.put("errorCode", 401);
+            errorData.put("errorMessage", "잘못된 토큰입니다.");
+
+            response.setContentType("application/json;charset=UTF-8");
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(errorData);
+            response.getWriter().write(jsonResponse);
             return;
         }
 
@@ -37,8 +55,16 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (jwtUtil.isExpired(token)) {
 
-            log.info("토큰 시간 만료");
-            filterChain.doFilter(request, response);
+            response.setStatus(401);
+
+            Map<String, Object> errorData = new HashMap<>();
+            errorData.put("errorCode", 401);
+            errorData.put("errorMessage", "만료된 토큰입니다.");
+
+            response.setContentType("application/json;charset=UTF-8");
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(errorData);
+            response.getWriter().write(jsonResponse);
             return;
         }
 
