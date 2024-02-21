@@ -11,8 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("https://kf128e92ac8d6a.user-app.krampoline.com/", "http://localhost:3000") // 허용할
                 // Origin
-                .allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").exposedHeaders("auth"); // 허용할
-                                                                                                            // HTTP
-                                                                                                            // 메서드
+                .allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*")
+                .exposedHeaders("Authorization"); // 허용할
+        // HTTP
+        // 메서드
     }
 }
