@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 // 경로별 인가 작업
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/signup", "/login", "/duplicate/**").permitAll()
+                        .requestMatchers("/signup", "/login", "/duplicate/**", "/ws-stomp/websocket").permitAll()
                         .requestMatchers("/admin").hasAnyAuthority(String.valueOf(Authority.ROLE_ADMIN))
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtFilter(jwtUtil), LoginFilter.class)
@@ -60,4 +60,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
-//"/signup", "/login", "/duplicate/**", "/chat/**"
+// "/signup", "/login", "/duplicate/**", "/chat/**"

@@ -24,13 +24,15 @@ public class ChatController {
 
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) {
-        log.info("message type = {}, message = {}", message.getType(),message.getMessage());
-        if(ChatMessage.MessageType.ENTER.equals(message.getType())){
+        log.info("message type = {}, message = {}", message.getType(), message.getMessage());
+        if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
             message.setMessage(message.getSender() + "님이 입장하셨습니다.");
         }
 
-        String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        message.setLoginId(loginId);
+        // 이부분에서 null point error 가 납니다.
+        // String loginId =
+        // SecurityContextHolder.getContext().getAuthentication().getName();
+        // message.setLoginId(loginId);
         chatService.save(message);
 
         messageSendingOperations.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
@@ -38,7 +40,7 @@ public class ChatController {
 
     @GetMapping("/chat/roomId/{roomId}")
     @ResponseBody
-    public List<ChatMessage> findMessageByRoomId(@PathVariable String roomId){
+    public List<ChatMessage> findMessageByRoomId(@PathVariable String roomId) {
         return chatService.findByRoomId(roomId);
     }
 
