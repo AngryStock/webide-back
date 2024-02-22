@@ -30,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String requestURI = request.getRequestURI();
         if (requestURI.startsWith("/signup") || requestURI.startsWith("/login") || requestURI.startsWith(
-                "/duplicate")) {
+                "/duplicate") || requestURI.startsWith("/ws-stomp/websocket")) {
             filterChain.doFilter(request, response);
             return;
         }
