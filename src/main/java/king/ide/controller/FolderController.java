@@ -2,7 +2,9 @@ package king.ide.controller;
 
 import king.ide.domain.Folders;
 import king.ide.dto.FolderDto;
+import king.ide.dto.TreeNode;
 import king.ide.service.FolderService;
+import king.ide.service.TreeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 public class FolderController {
 
     private final FolderService folderService;
+    private final TreeService treeService;
 
     // 폴더 생성
     @PostMapping
@@ -51,5 +54,12 @@ public class FolderController {
     public ResponseEntity<Void> deleteFolder(@PathVariable Long id) {
         folderService.deleteFolderAll(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // 최상위 개체가 폴더인 경우 Tree
+    @GetMapping("/tree")
+    public ResponseEntity<TreeNode<Object>> getFolderTree(@RequestParam(name = "parent", required = false) Long parentId) {
+        TreeNode<Object> folderTree = (TreeNode<Object>) treeService.getFolderTree(parentId);
+        return ResponseEntity.ok(folderTree);
     }
 }

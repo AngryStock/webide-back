@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CodeRepository extends JpaRepository<Codes, Long> {
     // Spring Data JPA 사용
+
+    // 추가
+    Codes getByFileId(Long fileId);
 }
