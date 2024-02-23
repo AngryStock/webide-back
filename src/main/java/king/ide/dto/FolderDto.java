@@ -15,7 +15,7 @@ public class FolderDto {
     private Long id;
     private Long memberId; // 해당 폴더 소유자 ID
     private String foldername;
-    private String parentFolderId; // 상위 폴더 ID
+    private Long parentFolderId; // 상위 폴더 ID
     private LocalDateTime createdAt;
     private Language language;
     private List<PackageDto> packages; // 폴더에 속한 패키지 목록

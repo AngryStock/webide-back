@@ -14,7 +14,7 @@ public class PackageDto {
     private Long id;
     private Long folderId;
     private String packagename;
-    private String parentPackageId;
+    private Long parentPackageId;
     private LocalDateTime createdAt;
 
     // folderId
@@ -32,7 +32,7 @@ public class PackageDto {
         packages.setFolders(folders);
 
         packages.setPackagename(this.packagename);
-        packages.setParentPackagerId(this.parentPackageId);
+        packages.setParentPackageId(this.parentPackageId);
         packages.setCreatedAt(this.createdAt);
 
         return packages;

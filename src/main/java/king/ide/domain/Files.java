@@ -17,6 +17,10 @@ public class Files {
     @JoinColumn(name = "package_id")
     private Packages packages;
 
+    @ManyToOne
+    @JoinColumn(name = "folder_id")
+    private Folders folders;
+
     @OneToOne(mappedBy = "files")
     private Codes codes;
 

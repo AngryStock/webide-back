@@ -9,5 +9,5 @@ public interface CodeRepository extends JpaRepository<Codes, Long> {
     // Spring Data JPA 사용
 
     // 추가
-    Codes getByFileId(Long fileId);
+    Codes findByFiles_Id(Long fileId);
 }

@@ -11,5 +11,7 @@ public interface FileRepository extends JpaRepository<Files, Long> {
     // Spring Data JPA 사용
 
     // 추가
-    List<Files> findByParentFolderId(Long parentFolderId);
+    List<Files> findByFoldersId(Long folderId);
+
+    List<Files> findByPackagesId(Long pacakageId);
 }

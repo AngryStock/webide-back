@@ -32,15 +32,15 @@ public class TreeService {
     }
 
     public List<Files> getChildFiles(Long parentFolderId) { // 부모 폴더 Id -> 해당 폴더의 하위 파일 검색
-        return fileRepository.findByParentFolderId(parentFolderId);
+        return fileRepository.findByFoldersId(parentFolderId);
     }
 
     public List<Files> getPackageFiles(Long parentPackageId) { // 부모 패키지 Id -> 해당 패키지의 하위 파일 검색
-        return fileRepository.findByParentFolderId(parentPackageId);
+        return fileRepository.findByPackagesId(parentPackageId);
     }
 
     public Codes getCodeForFile(Long fileId) { // 파일 Id -> 해당하는 코드 검색
-        return codeRepository.getByFileId(fileId);
+        return codeRepository.findByFiles_Id(fileId);
     }
 
     public TreeNode<Object> getFolderTree(Long parentFolderId) {
