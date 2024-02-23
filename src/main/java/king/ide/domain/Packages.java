@@ -21,7 +21,7 @@ public class Packages {
     private Folders folders;
 
     private String packagename;
-    private String parentPackagerId;
+    private Long parentPackageId;
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "packages")

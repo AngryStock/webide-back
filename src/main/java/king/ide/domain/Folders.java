@@ -21,7 +21,7 @@ public class Folders {
     private Member member;
 
     private String foldername;
-    private String parentFolderId;
+    private Long parentFolderId;
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
