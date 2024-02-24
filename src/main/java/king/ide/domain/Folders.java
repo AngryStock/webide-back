@@ -17,12 +17,13 @@ public class Folders {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     private String foldername;
     private Long parentFolderId;
     private LocalDateTime createdAt;
+    private boolean droppable = true;
 
     @Enumerated(EnumType.STRING)
     private Language language;

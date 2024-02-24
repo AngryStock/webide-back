@@ -18,6 +18,8 @@ public class FolderDto {
     private Long parentFolderId; // 상위 폴더 ID
     private LocalDateTime createdAt;
     private Language language;
+    private boolean droppable = true;
+
     private List<PackageDto> packages; // 폴더에 속한 패키지 목록
 
     public Folders toEntity() {
@@ -28,11 +30,12 @@ public class FolderDto {
         Member member = new Member();
         member.setId(this.memberId);
 
-        //folder.setMember(member);
+        folder.setMember(member);
         folder.setFoldername(this.foldername);
         folder.setParentFolderId(this.parentFolderId);
         folder.setCreatedAt(this.createdAt);
         folder.setLanguage(this.language);
+        folder.setDroppable(this.droppable);
 
         return folder;
     }

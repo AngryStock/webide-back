@@ -23,6 +23,7 @@ public class Packages {
     private String packagename;
     private Long parentPackageId;
     private LocalDateTime createdAt;
+    private boolean droppable = true;
 
     @OneToMany(mappedBy = "packages")
     private List<Files> filesList;

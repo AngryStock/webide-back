@@ -1,5 +1,6 @@
 package king.ide.controller;
 
+import king.ide.controller.response.FolderResponse;
 import king.ide.domain.Folders;
 import king.ide.dto.FolderDto;
 import king.ide.dto.TreeNode;
@@ -23,9 +24,10 @@ public class FolderController {
 
     // 폴더 생성
     @PostMapping
-    public ResponseEntity<Folders> createFolder(@RequestBody FolderDto folderDto) {
+    public ResponseEntity<FolderResponse> createFolder(@RequestBody FolderDto folderDto) {
         Folders createdFolder = folderService.createFolder(folderDto.toEntity());
-        return ResponseEntity.ok(createdFolder);
+        FolderResponse folderResponse = new FolderResponse(createdFolder);
+        return ResponseEntity.ok(folderResponse);
     }
 
     // 모든 폴더 조회
@@ -57,8 +59,8 @@ public class FolderController {
     }
 
     // 최상위 개체가 폴더인 경우 Tree
-    @GetMapping("/tree")
-    public ResponseEntity<TreeNode<Object>> getFolderTree(@RequestParam(name = "parent", required = false) Long parentId) {
+    @GetMapping("/tree/{id}")
+    public ResponseEntity<TreeNode<Object>> getFolderTree(@PathVariable("id") Long parentId) {
         TreeNode<Object> folderTree = (TreeNode<Object>) treeService.getFolderTree(parentId);
         return ResponseEntity.ok(folderTree);
     }
