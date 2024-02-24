@@ -16,6 +16,7 @@ public class PackageDto {
     private String packagename;
     private Long parentPackageId;
     private LocalDateTime createdAt;
+    private boolean droppable = true;
 
     // folderId
     private final FolderService folderService;
@@ -34,6 +35,7 @@ public class PackageDto {
         packages.setPackagename(this.packagename);
         packages.setParentPackageId(this.parentPackageId);
         packages.setCreatedAt(this.createdAt);
+        packages.setDroppable(this.droppable);
 
         return packages;
     }
