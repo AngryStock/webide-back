@@ -15,8 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FolderService {
 
-    private FolderRepository folderRepository;
-    private PackageService packageService;
+    private final FolderRepository folderRepository;
+    private final PackageService packageService;
 
     public Folders createFolder(Folders folders) { // 폴더 생성
         return folderRepository.save(folders);
