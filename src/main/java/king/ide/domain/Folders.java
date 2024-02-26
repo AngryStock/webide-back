@@ -16,7 +16,7 @@ public class Folders {
     @Column(name = "folder_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
