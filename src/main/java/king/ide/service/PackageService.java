@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PackageService {
-    private PackageRepository packageRepository;
-    private FileService fileService;
+    private final PackageRepository packageRepository;
+    private final FileService fileService;
 
     public Packages createPackage(Packages Packages) { // 패키지 생성
         return packageRepository.save(Packages);

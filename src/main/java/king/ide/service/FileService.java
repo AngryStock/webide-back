@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FileService {
-    private FileRepository fileRepository;
-    private CodeService codeService;
+    private final FileRepository fileRepository;
+    private final CodeService codeService;
 
     public Files createFile(Files files) { // 파일 생성
         return fileRepository.save(files);

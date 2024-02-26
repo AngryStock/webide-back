@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CodeService {
-    private CodeRepository codeRepository;
+    private final CodeRepository codeRepository;
 
     public Codes createCode(Codes codes) { // 코드 생성
         return codeRepository.save(codes);
